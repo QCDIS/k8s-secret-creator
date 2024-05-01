@@ -49,3 +49,13 @@ tox
 docker build . -t k8s-secret-creator
 docker run --rm -p 8080:8080 k8s-secret-creator:latest
 ```
+
+## Tilt
+
+```shell
+minikube start
+tilt up
+minikube service chart-k8s-secret-creator --url
+```
+
+The swagger UI is accessible at: http://localhost:8080/k8s-secret-creator/1.0.0/ui
