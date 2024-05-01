@@ -42,3 +42,10 @@ To launch the integration tests, use tox:
 pip install -r test-requirements.txt
 tox
 ```
+
+## Docker
+
+```shell
+docker build . -t k8s-secret-creator
+docker run --rm -p 8080:8080 k8s-secret-creator:latest
+```
