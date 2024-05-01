@@ -1,0 +1,64 @@
+openapi: 3.0.0
+info:
+  title: K8s secret creator
+  description: A simple API to add secrets to Kubernetes
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+- url: /k8s-secret-creator/1.0.0
+paths:
+  /:
+    post:
+      summary: add a secret
+      description: Create a new secret containing the provided data
+      operationId: add_secret
+      requestBody:
+        description: Secret data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SecretData'
+      responses:
+        "201":
+          description: item created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatedSecret'
+        "400":
+          description: "invalid input, object invalid"
+        "401":
+          description: access token is missing or invalid
+        "409":
+          description: an existing item already exists
+      security:
+      - bearerAuth: []
+      x-openapi-router-controller: k8s_secret_creator.controllers.default_controller
+components:
+  schemas:
+    SecretData:
+      type: object
+      additionalProperties:
+        type: string
+        format: byte
+      example:
+        username: YWxpY2U=
+        password: c3VwZXJTZWNyZXRQNCQkdzByZA==
+    CreatedSecret:
+      required:
+      - secretName
+      type: object
+      properties:
+        secretName:
+          type: string
+          example: ext-ea930904-9f57-4eee-bc80-27b7cf063d6d
+      example:
+        secretName: ext-ea930904-9f57-4eee-bc80-27b7cf063d6d
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      x-bearerInfoFunc: k8s_secret_creator.controllers.authorization_controller.check_bearerAuth
