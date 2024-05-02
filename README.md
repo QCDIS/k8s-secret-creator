@@ -21,6 +21,7 @@ pip install -r requirements.txt
 To run the server, please execute the following from the root directory:
 
 ```shell
+minikube start
 while read env; do export $env; done < .env.dev
 python -m k8s_secret_creator
 ```
@@ -37,11 +38,12 @@ Your Swagger definition lives here:
 http://localhost:8080/k8s-secret-creator/1.0.0/swagger.json
 ```
 
-To launch the integration tests, use tox:
+To launch the integration tests, use pytest:
 
 ```shell
-pip install tox
-tox
+minikube start
+pip install -r test-requirements.txt
+pytest
 ```
 
 ## Docker
@@ -56,7 +58,6 @@ docker run --rm --env-file .env.dev -p 8080:8080 k8s-secret-creator:latest
 ```shell
 minikube start
 tilt up
-minikube service chart-k8s-secret-creator --url
 ```
 
 The swagger UI is accessible at: http://localhost:8080/k8s-secret-creator/1.0.0/ui

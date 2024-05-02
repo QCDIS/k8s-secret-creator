@@ -19,6 +19,8 @@ def client(app):
 @pytest.fixture
 def client_authenticated(app):
     os.environ['API_TOKEN'] = 'test_api_token'
+    os.environ['K8S_NAMESPACE'] = 'default'
+    os.environ['SECRET_PREFIX'] = 'ksc-'
     c = app.test_client()
     c.headers = {
         'X-Auth': 'test_api_token',
