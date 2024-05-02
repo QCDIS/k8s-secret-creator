@@ -108,3 +108,6 @@ affinity: {}
 
 auth:
   api_token: ''
+
+conf:
+  secret_prefix: 'ksc-'

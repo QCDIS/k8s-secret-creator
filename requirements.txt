@@ -5,3 +5,4 @@ connexion[uvicorn]==3.0.6
 python_dateutil==2.8.2
 setuptools==69.5.1
 swagger-ui-bundle==1.1.0
+kubernetes==29.0.0

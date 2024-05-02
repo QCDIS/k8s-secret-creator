@@ -62,3 +62,6 @@ class CreatedSecret(Model):
             raise ValueError("Invalid value for `secret_name`, must not be `None`")  # noqa: E501
 
         self._secret_name = secret_name
+
+    def to_dict(self) -> dict:
+        return {'secretName': self.secret_name}

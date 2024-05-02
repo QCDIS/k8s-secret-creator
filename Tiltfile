@@ -1,5 +1,11 @@
+load('ext://namespace', 'namespace_create')
+
+namespace = 'ksc-dev'
+namespace_create(namespace)
+
 k8s_yaml(helm(
   './helm/k8s-secret-creator',
+  namespace='ksc-dev',
   values=['./helm/k8s-secret-creator/values-dev.yaml'],
 ))
 
