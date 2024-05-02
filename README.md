@@ -40,7 +40,7 @@ http://localhost:8080/k8s-secret-creator/1.0.0/swagger.json
 To launch the integration tests, use tox:
 
 ```shell
-pip install -r test-requirements.txt
+pip install tox
 tox
 ```
 

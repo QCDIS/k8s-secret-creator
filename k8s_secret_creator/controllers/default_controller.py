@@ -1,19 +1,16 @@
-import connexion
-
-from k8s_secret_creator.models.created_secret import CreatedSecret  # noqa: E501
-from k8s_secret_creator import util
+from k8s_secret_creator.models.created_secret import CreatedSecret
+from k8s_secret_creator.models.secret_data import SecretData
 
 
-def add_secret(body=None):  # noqa: E501
+def add_secret(body=None):
     """add a secret
 
-    Create a new secret containing the provided data # noqa: E501
+    Create a new secret containing the provided data
 
     :param body: Secret data
     :type body: dict | bytes
 
     :rtype: CreatedSecret
     """
-    if connexion.request.is_json:
-        body = Dict[str, bytearray].from_dict(connexion.request.get_json())  # noqa: E501
+    body = SecretData.from_dict(body)
     return 'do some magic!'
