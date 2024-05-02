@@ -15,7 +15,7 @@ pip install -r requirements.txt
 pip install -r test-requirements.txt
 ```
 
-## Dev server
+### Dev server
 
 To run the server, please execute the following from the root directory:
 
@@ -27,7 +27,7 @@ python -m k8s_secret_creator
 
 The Swagger UI is accessible at: http://localhost:8080/k8s-secret-creator/1.0.0/ui/
 
-## Tests
+### Tests
 
 To run the tests, execute:
 
@@ -36,7 +36,7 @@ minikube start
 pytest
 ```
 
-## Tilt
+### Tilt
 
 To run the service in Kubernetes or develop the Helm charts, run Tilt:
 
