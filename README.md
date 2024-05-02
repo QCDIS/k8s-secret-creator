@@ -21,6 +21,7 @@ pip install -r requirements.txt
 To run the server, please execute the following from the root directory:
 
 ```shell
+while read env; do export $env; done < .env.dev
 python -m k8s_secret_creator
 ```
 
@@ -47,7 +48,7 @@ tox
 
 ```shell
 docker build . -t k8s-secret-creator
-docker run --rm -p 8080:8080 k8s-secret-creator:latest
+docker run --rm --env-file .env.dev -p 8080:8080 k8s-secret-creator:latest
 ```
 
 ## Tilt

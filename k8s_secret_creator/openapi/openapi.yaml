@@ -34,7 +34,7 @@ paths:
         "409":
           description: an existing item already exists
       security:
-      - bearerAuth: []
+      - api_key: []
       x-openapi-router-controller: k8s_secret_creator.controllers.default_controller
 components:
   schemas:
@@ -57,8 +57,8 @@ components:
       example:
         secretName: ext-ea930904-9f57-4eee-bc80-27b7cf063d6d
   securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
-      x-bearerInfoFunc: k8s_secret_creator.controllers.authorization_controller.check_bearerAuth
+    api_key:
+      type: apiKey
+      name: X-Auth
+      in: header
+      x-apikeyInfoFunc: k8s_secret_creator.controllers.authorization_controller.check_apikey_auth

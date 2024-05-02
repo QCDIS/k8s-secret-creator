@@ -1,4 +1,7 @@
-k8s_yaml(helm('./helm/k8s-secret-creator'))
+k8s_yaml(helm(
+  './helm/k8s-secret-creator',
+  values=['./helm/k8s-secret-creator/values-dev.yaml'],
+))
 
 docker_build(
     'k8s-secret-creator',

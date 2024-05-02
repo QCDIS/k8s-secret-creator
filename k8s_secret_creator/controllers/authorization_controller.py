@@ -1,9 +1,9 @@
-from typing import List
-"""
-controller generated to handled auth operation described at:
-https://connexion.readthedocs.io/en/latest/security.html
-"""
-def check_bearerAuth(token):
-    return {'test_key': 'test_value'}
+import os
+from connexion.exceptions import OAuthProblem
 
 
+def check_apikey_auth(token):
+    if token != os.getenv('API_TOKEN', None):
+        raise OAuthProblem("Invalid token")
+    else:
+        return {"active": True}
