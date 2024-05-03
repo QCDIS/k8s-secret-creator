@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: k8s-secret-creator
+  repository: ghcr.io/qcdis/k8s-secret-creator
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""

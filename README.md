@@ -52,7 +52,7 @@ The swagger UI is accessible at: http://localhost:8080/k8s-secret-creator/1.0.0/
 
 We use Helm for the deployment.
 
-Create a new file, `my-values.yaml`, containing at least the following lines:
+Create a new file, `ksc-values.yaml`, containing at least the following lines:
 
 ```yaml
 auth:
@@ -64,5 +64,5 @@ Additional configuration such as ingress can be added to this values file. Refer
 To deploy, run:
 
 ```shell
-helm -n my-namespace upgrade --install --create-namespace k8s-secret-creator ./helm/k8s-secret-creator -f my-values.yaml
+helm -n ksc-ns upgrade --install --create-namespace k8s-secret-creator oci://ghcr.io/qcdis/k8s-secret-creator-chart -f ksc-values.yaml
 ```

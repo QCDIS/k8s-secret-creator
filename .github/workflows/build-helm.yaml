@@ -1,0 +1,63 @@
+name: Build helm
+
+on:
+  workflow_call:
+    inputs:
+      oci_tag:
+        description: 'OCI tag for the chart'
+        type: string
+        required: true
+      version:
+        description: 'Helm chart version'
+        type: string
+        required: true
+      push:
+        description: 'Push to the image registry'
+        type: boolean
+        required: true
+
+jobs:
+  build:
+    name: Build ${{ inputs.oci_tag }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Add version to Chart.yaml files
+        run: |
+          VERSION=${{ inputs.version }}
+          find . -name 'Chart.yaml' | while read file; do
+            sed -i "s/version: \"0.0.0-dev\"/version: \"$VERSION\"/g" "$file"
+            sed -i "s/appVersion: \"0.0.0-dev\"/appVersion: \"$VERSION\"/g" "$file"
+          done
+
+      - name: Package Helm charts
+        run: |
+          helm dependency update
+          helm package helm/k8s-secret-creator -d .charts-packages/
+
+      - name: Configure Git
+        run: |
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+
+      - name: Install Helm
+        uses: azure/setup-helm@v3
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Push Charts to GHCR
+        run: |
+          OCI_REPO="${{ github.oci_tag }}"
+          for pkg in .charts-packages/*; do
+            helm push "${pkg}" "oci://${OCI_TAG}"
+          done
