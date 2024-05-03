@@ -3,8 +3,8 @@ name: Build helm
 on:
   workflow_call:
     inputs:
-      oci_tag:
-        description: 'OCI tag for the chart'
+      oci_repo:
+        description: 'OCI repository for the chart'
         type: string
         required: true
       version:
@@ -48,8 +48,7 @@ jobs:
 
       - name: Push Charts to GHCR
         run: |
-          OCI_REPO="${{ github.oci_tag }}"
           for pkg in .charts-packages/*; do
-            helm push "${pkg}" "oci://${{ inputs.oci_tag }}"
+            helm push "${pkg}" "oci://${{ inputs.oci_repo }}"
           done
         if: ${{ inputs.push }}

@@ -64,5 +64,5 @@ Additional configuration such as ingress can be added to this values file. Refer
 To deploy, run:
 
 ```shell
-helm -n ksc-ns upgrade --install --create-namespace k8s-secret-creator oci://ghcr.io/qcdis/k8s-secret-creator-chart -f ksc-values.yaml
+helm -n ksc-ns upgrade --install --create-namespace k8s-secret-creator oci://ghcr.io/qcdis/charts/k8s-secret-creator -f ksc-values.yaml
 ```

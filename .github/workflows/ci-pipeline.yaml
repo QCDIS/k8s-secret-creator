@@ -42,6 +42,6 @@ jobs:
     uses: ./.github/workflows/build-helm.yaml
     needs: [test]
     with:
-      oci_tag: ghcr.io/qcdis/k8s-secret-creator-chart
+      oci_repo: ghcr.io/qcdis/charts
       version: ${{ github.ref_type == 'tag' && github.ref_name || github.sha }}
       push: ${{ github.event_name == 'release' }}
