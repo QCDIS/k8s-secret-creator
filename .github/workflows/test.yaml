@@ -21,6 +21,12 @@ jobs:
           activate-environment: jupyterlab
           use-mamba: true
 
+      - name: Isntall requirements
+        shell: bash -l {0}
+        run: |
+          pip install -r requirements.txt
+          pip install -r test-requirements.txt
+
       - name: Cache Conda environment
         uses: actions/cache@v4
         with:
@@ -33,7 +39,5 @@ jobs:
       - name: Pytest
         shell: bash -l {0}
         run: |
-          pip install -r requirements.txt
-          pip install -r test-requirements.txt
           minikube start
           pytest

@@ -37,7 +37,6 @@ jobs:
 
       - name: Package Helm charts
         run: |
-          helm dependency update
           helm package helm/k8s-secret-creator -d .charts-packages/
 
       - name: Configure Git
